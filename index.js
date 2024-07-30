@@ -21,7 +21,7 @@ db.connect();
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(express.static("public"));
 
-
+// setting the app to listen on port 3000
 app.listen(port, () => {
     console.log(`Server running on http://localhost:${port}`);
   });
