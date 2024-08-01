@@ -10,7 +10,7 @@ const port = 3000;
 const db = new pg.Client({
     user: "postgres",
     host: "localhost",
-    database: "postgres",
+    database: "library",
     password: "StayPositive24",
     port: 5432,
 });
@@ -31,57 +31,31 @@ const books = [
       rating: 5,
       review: 'A classic piece of American fiction.',
       date_read: '2023-01-01'
-    },
-    {
-        id: 1,
-        title: 'The Great Gatsby',
-        author: 'F. Scott Fitzgerald',
-        cover_url: 'https://example.com/great-gatsby.jpg',
-        rating: 5,
-        review: 'A classic piece of American fiction.',
-        date_read: '2023-01-01'
-      },
-      {
-        id: 1,
-        title: 'The Great Gatsby',
-        author: 'F. Scott Fitzgerald',
-        cover_url: 'https://example.com/great-gatsby.jpg',
-        rating: 5,
-        review: 'A classic piece of American fiction.',
-        date_read: '2023-01-01'
-      },
-      {
-        id: 1,
-        title: 'The Great Gatsby',
-        author: 'F. Scott Fitzgerald',
-        cover_url: 'https://example.com/great-gatsby.jpg',
-        rating: 5,
-        review: 'A classic piece of American fiction.',
-        date_read: '2023-01-01'
-      },
-      {
-        id: 1,
-        title: 'The Great Gatsby',
-        author: 'F. Scott Fitzgerald',
-        cover_url: 'https://example.com/great-gatsby.jpg',
-        rating: 5,
-        review: 'A classic piece of American fiction.',
-        date_read: '2023-01-01'
-      },
-      {
-        id: 1,
-        title: 'The Great Gatsby',
-        author: 'F. Scott Fitzgerald',
-        cover_url: 'https://example.com/great-gatsby.jpg',
-        rating: 5,
-        review: 'A classic piece of American fiction.',
-        date_read: '2023-01-01'
-      },
-    // Add more book objects here
-  ];
+    }
+]
 
 app.get("/", async (req, res) => {
     res.render("index.ejs", {books});
+  });
+
+  app.get("/new", async (req, res) => {
+    res.render("new.ejs");
+  });
+
+  app.post("/new", async (req, res) => {
+    const book_title = req.body.title;
+    const book_author = req.body.author;
+    const book_rating = req.body.rating;
+    const book_review = req.body.review;
+    const book_isbn = req.body.isbn;
+    try {
+      await db.query("INSERT INTO books (isbn, title, author, rating, review) VALUES ($1, $2, $3, $4, $5)",
+        [book_isbn, book_title, book_author, book_rating, book_review]);
+    }
+    catch (err) {
+      console.log(err);
+    }
+    
   });
 
 // setting the app to listen on port 3000
