@@ -35,7 +35,16 @@ const books = [
 ]
 
 app.get("/", async (req, res) => {
-    res.render("index.ejs", {books});
+  try{
+    const result = await db.query("SELECT * FROM books ORDER BY id ASC");
+    const items = result.rows;
+    res.render("index.ejs",{
+      books: items
+    });
+  }
+  catch (err) {
+    console.log(err);
+  }
   });
 
   app.get("/new", async (req, res) => {
@@ -55,7 +64,7 @@ app.get("/", async (req, res) => {
     catch (err) {
       console.log(err);
     }
-    
+    res.redirect("/");
   });
 
 // setting the app to listen on port 3000
