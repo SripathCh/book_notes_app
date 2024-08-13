@@ -64,6 +64,8 @@ hr {
 
 .btn {
     border: none;
+    padding: 14px 25px;
+    border-radius: 10px;
 }
 
 a:link, a:visited {

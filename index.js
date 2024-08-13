@@ -69,7 +69,7 @@ app.post("/new", async (req, res) => {
 });
 
 
-app.get('/edit/:id', async (req, res) => {
+app.get("/edit/:id", async (req, res) => {
   const bookId = req.params.id;
   try {
     const result = await db.query('SELECT * FROM books WHERE id = $1', [bookId]);
@@ -80,15 +80,27 @@ app.get('/edit/:id', async (req, res) => {
   }
 });
 
-app.post("/edit-review", async (req, res) => {
+app.post("/edit/:id", async (req, res) => {
   const bookId = req.params.id;
-  const { review } = req.body.review ;
+  const { review } = req.body;
+
   try {
-    await db.query('UPDATE books SET review = $1 WHERE id = $2', [review, bookId]);
-    res.redirect('/');
+    await db.query("UPDATE books SET review = $1 WHERE id = $2", [review, bookId]);
+    res.redirect("/");
   } catch (err) {
     console.error(err);
     res.status(500).send("Error updating the book review");
+  }
+});
+
+app.post("/delete/:id", async (req, res) => {
+  const bookId = req.params.id;
+  try {
+    await db.query("DELETE FROM books WHERE id = $1", [bookId]);
+    res.redirect("/");
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Error deleting the book");
   }
 });
 
