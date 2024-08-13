@@ -1,0 +1,17 @@
+body {
+    background-color: #F9F6EE;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+}
+
+.container {
+    width: 60%;
+    background-color: #F9F6EE;
+    padding: 2em;
+    margin-top: 2em;
+    color: black;
+    border-radius: 10px;
+    font-size: 15px;
+}
