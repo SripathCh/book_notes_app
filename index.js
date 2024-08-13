@@ -18,27 +18,27 @@ db.connect();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
-const fetchBookCover = async (isbn) => {
-  const url = `https://covers.openlibrary.org/b/isbn/${isbn}-M.jpg?default=false`;
-  try {
-    const response = await axios.get(url, { responseType: 'arraybuffer' });
-    const base64Image = Buffer.from(response.data, 'binary').toString('base64');
-    return `data:image/jpeg;base64,${base64Image}`;
-  } catch (error) {
-    console.error(`Error fetching cover for ISBN: ${isbn}`, error.message);
-    return '/images/default-image.jpg'; // Default cover image
-  }
-};
+// async function fetchBookCover (isbn) {
+//   const url = `https://covers.openlibrary.org/b/isbn/${isbn}-M.jpg?default=false`;
+//   try {
+//     const response = await axios.get(url, { responseType: 'arraybuffer' });
+//     const base64Image = Buffer.from(response.data, 'binary').toString('base64');
+//     return `data:image/jpeg;base64,${base64Image}`;
+//   } catch (error) {
+//     console.error(`Error fetching cover for ISBN: ${isbn}`, error.message);
+//     return '/images/default-image.jpg'; // Default cover image
+//   }
+// };
 
 app.get("/", async (req, res) => {
   try {
     const result = await db.query("SELECT * FROM books ORDER BY id ASC");
     const items = result.rows;
 
-    for (const item of items) {
-      const coverUrl = await fetchBookCover(item.isbn);
-      item.cover_url = coverUrl;
-    }
+    // for (const item of items) {
+    //   const coverUrl = await fetchBookCover(item.isbn);
+    //   item.cover_url = coverUrl;
+    // }
 
     res.render("index.ejs", { books: items });
   } catch (err) {

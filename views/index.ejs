@@ -25,7 +25,7 @@
             
             </h4>
             <br>
-            <a href="/new" class="btn btn-light">Add new</a>
+            <a href="/new" class="btn btn-dark">Add new</a>
             <hr>
             <br>
     
@@ -38,10 +38,10 @@
                     <h2><%= book.title %> - by <%= book.author %></h2>
                     <p><strong>Date read:</strong> <%= book.date %></p>
                     <p><strong>How strongly I recommend it:</strong> <%= book.rating %>/10</p>
-                    <p><%= book.review %></p>
+                    <p><strong>My Review:</strong> <%= book.review %></p>
                     <div class="links">
-                        <a href="#">Read my notes</a> 
-                        <a href="<%= book.amazon_url %>">Amazon page</a>
+                        <a href="#" class="btn btn-dark">Read my notes</a> 
+                        <a href="<%= book.amazon_url %>" class="btn btn-dark">Amazon page</a>
                     </div>
                 </div>
             </div>
